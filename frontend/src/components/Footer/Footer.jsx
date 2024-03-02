@@ -1,6 +1,7 @@
+import styles from './Footer.module.css'
 function Footer(){
     return(
-        <p>&copy; Arena4u</p>
+        <p className={styles.footer}>&copy; Arena4u</p>
     );
 }
 
