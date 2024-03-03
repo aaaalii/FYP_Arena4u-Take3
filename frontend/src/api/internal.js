@@ -20,3 +20,79 @@ export const login = async (data) => {
   return response;
 };
 
+export const signup = async (data) => {
+  let response;
+
+  try {
+    response = await api.post("/signup", data);
+  } catch (error) {
+    return error;
+  }
+
+  return response;
+};
+
+export const logout = async () => {
+  let response;
+
+  try{
+    response = await(api.post("/logout"));
+  }
+  catch(error){
+    return error;
+  }
+
+  return response;
+}
+
+export const registerStadium = async(data) => {
+  let response;
+
+  try {
+    response = await(api.post("/stadium/register", data));
+    
+  } catch (error) {
+    return error;
+  }
+
+  return response;
+} 
+
+export const updateStadium = async(data) => {
+  let response;
+
+  try {
+    response = await(api.post("/stadium/update", data));
+    
+  } catch (error) {
+    return error;
+  }
+
+  return response;
+} 
+
+export const seacrhStadium = async(data) => {
+  let response;
+
+  try {
+    response = await(api.post("/stadium/register", data));
+    
+  } catch (error) {
+    return error;
+  }
+
+  return response;
+} 
+
+export const getStadiums = async() => {
+  let response;
+
+  try {
+    response = await(api.get("/stadium/all"));
+    
+  } catch (error) {
+    return error;
+  }
+
+  return response;
+}

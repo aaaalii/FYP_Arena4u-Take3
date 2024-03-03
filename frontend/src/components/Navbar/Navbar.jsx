@@ -1,8 +1,19 @@
 import { NavLink } from "react-router-dom";
 import styles from './Navbar.module.css';
+import { useSelector } from "react-redux";
+import { logout } from '../../api/internal';
+import { useDispatch } from "react-redux";
+import { resetUser } from "../../store/userSlice";
+
 
 function Navbar() {
-    const isAuthenticated = false;
+    const isAuthenticated = useSelector((state) => state.user.auth);
+
+    const dispatch = useDispatch();
+    const handleLogOut = async () => {
+        await logout();
+        dispatch(resetUser());
+    };
     return (
         <>
             <nav className={styles.navbar}>
@@ -20,10 +31,15 @@ function Navbar() {
                         isActive ? styles.activeStyle : styles.inActiveStyle
                     }>Book a stadium</NavLink>
 
+                <NavLink to='register-stadium'
+                    className={({ isActive }) =>
+                        isActive ? styles.activeStyle : styles.inActiveStyle
+                    }>Register Stadium</NavLink>
+
                 {isAuthenticated ? (
                     <div>
                         <NavLink>
-                            <button className={styles.signOutButton}>
+                            <button className={styles.signOutButton} onClick={handleLogOut}>
                                 Sign Out
                             </button>
                         </NavLink>

@@ -38,7 +38,7 @@ function Login(){
         }
 
         else if(response.code === 'ERR_BAD_REQUEST'){
-            setError(response.response.data.errorMessage);
+            setError(response.response.data.message);
         }
 
 
@@ -76,7 +76,14 @@ function Login(){
                  error={errors.password && touched.password ? 1 : undefined}
                  errormessage={errors.password}
             />
-            <button className={styles.logInButton} onClick={handleLogin}>Log In</button>
+            <button className={styles.logInButton} onClick={handleLogin}
+                disabled={
+                    !values.username ||
+                    !values.password ||
+                    errors.username ||
+                    errors.password
+                  }
+            >Log In</button>
             <span>
                 Don't have an account?{" "} 
                 <button className={styles.createAccount} onClick={() => navigate("/signup")}>Register</button>

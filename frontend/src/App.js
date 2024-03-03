@@ -5,8 +5,13 @@ import Footer from "./components/Footer/Footer";
 import styles from "./App.module.css";
 import Error from "./pages/Error/Error";
 import Login from "./pages/Login/Login";
+import { useSelector } from "react-redux";
+import Signup from "./pages/SignUp/SignUp";
+import Protected from "./components/Protected/Protected";
 
 function App() {
+  // use this to navigate to protected routes
+  const isAuth = useSelector((state) => state.user.auth);
   return (
     <div className={styles.container}>
       <BrowserRouter>
@@ -28,21 +33,45 @@ function App() {
               element={<div className={styles.main}>stadiums</div>}
             />
             <Route
+              path="register-stadium"
+              exact
+              element={
+                <Protected isAuth={isAuth}>
+                  <div className={styles.main}>
+                    Register stadium
+                  </div>
+                </Protected>
+              }
+            />
+            <Route
               path="login"
               exact
-              element={<div className={styles.main}><Login/></div>}
+              element={
+                <div className={styles.main}>
+                  <Login />
+                </div>
+              }
             />
             <Route
               path="signup"
               exact
-              element={<div className={styles.main}>SignUp Page</div>}
+              element={
+                <div className={styles.main}>
+                  <Signup />
+                </div>
+              }
             />
+
             <Route
-              path = "*"
+              path="*"
               exact
-              element = {<div className={styles.main}><Error/></div>}
+              element={
+                <div className={styles.main}>
+                  <Error />
+                </div>
+              }
             />
-          </Routes>   
+          </Routes>
           <Footer />
         </div>
       </BrowserRouter>
