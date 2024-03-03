@@ -28,7 +28,7 @@ function Login(){
                 _id: response.data.user._id,
                 username: response.data.user.username,
                 phoneNumber: response.data.user.phoneNumber,
-                auth: response.data.user.auth
+                auth: response.data.auth
             }
 
             dispatch(setUser(user));
@@ -81,7 +81,7 @@ function Login(){
                 Don't have an account?{" "} 
                 <button className={styles.createAccount} onClick={() => navigate("/signup")}>Register</button>
             </span>
-
+            {error !== "" ? <p className={styles.errorMessage}>{error}</p> : ""}
         </div>
     );
 }
