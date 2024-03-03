@@ -9,10 +9,18 @@ const {PORT} = require('./config/index');
 const errorHandler = require('./middlewares/errorHandler');
 const router = require('./routes/index');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
+
+const corsOptions = {
+  credentials: true,
+  origin: ["http://localhost:3000"],
+};
 
 const app = express();
 
 app.use(cookieParser());
+
+app.use(cors(corsOptions));
 
 // For testing purpose, to send data in form of json
 app.use(express.json());

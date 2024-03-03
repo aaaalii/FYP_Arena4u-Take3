@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home";
 import Footer from "./components/Footer/Footer";
 import styles from "./App.module.css";
 import Error from "./pages/Error/Error";
+import Login from "./pages/Login/Login";
 
 function App() {
   return (
@@ -29,7 +30,7 @@ function App() {
             <Route
               path="login"
               exact
-              element={<div className={styles.main}>Login Page</div>}
+              element={<div className={styles.main}><Login/></div>}
             />
             <Route
               path="signup"
