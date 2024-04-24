@@ -11,12 +11,9 @@ const bookingsSchema = new mongoose.Schema({
     ref: 'User', // Reference to the User model
     required: true,
   },
-  startTime: {
-    type: String,
-    required: true,
-  },
-  endTime: {
-    type: String,
+  timeSlotId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Stadium.timeSlots', // Reference to the timeSlots within Stadium model
     required: true,
   },
 });

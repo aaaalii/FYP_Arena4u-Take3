@@ -20,7 +20,11 @@ const timeSlotSchema = new mongoose.Schema({
       type: String,
       required: true
     }
-  }
+  },
+  isBooked: {
+    type: Boolean,
+    required: false
+  },
 });
 
 const stadiumSchema = new mongoose.Schema({

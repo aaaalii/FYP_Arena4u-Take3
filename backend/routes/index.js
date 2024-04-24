@@ -43,8 +43,6 @@ router.get('/stadium/all', stadiumController.getAllStadiums);
 router.delete('/stadium/delete/:stadiumId', stadiumOwnerAuth, stadiumController.deleteStadium);
 
 // Book stadium (time-slot)
-router.post('/stadium/book/:stadiumId/:startTime/:endTime', auth, stadiumController.bookStadium);
-
-
+router.post('/stadium/book/:stadiumId/:timeSlotId', auth, stadiumController.bookStadium);
 
 module.exports = router;

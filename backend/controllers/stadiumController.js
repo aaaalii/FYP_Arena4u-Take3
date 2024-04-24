@@ -327,8 +327,7 @@ async function bookStadium(req, res, next) {
   // Validate Id
   const idValidationSchema = Joi.object({
     stadiumId: Joi.string().regex(mongodbIdPattern).required(),
-    startTime: Joi.string().required(),
-    endTime: Joi.string().required(),
+    timeSlotId: Joi.string().required()
   });
 
   const { error } = idValidationSchema.validate(req.params);
@@ -337,7 +336,7 @@ async function bookStadium(req, res, next) {
     return next(error);
   }
 
-  const { stadiumId, startTime, endTime } = req.params;
+  const { stadiumId, timeSlotId } = req.params;
 
   const userId = req.user._id;
 
@@ -348,33 +347,25 @@ async function bookStadium(req, res, next) {
       throw new Error("Stadium not found");
     }
 
-    let timeslot;
-
-    for (let i = 0; i < stadium.timeSlots.length; i++) {
-      const slot = stadium.timeSlots[i];
-      if (
-        slot.startTime === startTime &&
-        slot.endTime === endTime &&
-        !slot.isBooked
-      ) {
-        timeslot = slot;
-        break; // Stop looping once a matching timeslot is found
-      }
+    // Check if the time slot exists within the stadium
+    const timeSlot = stadium.timeSlots.find(slot => slot._id.equals(timeSlotId));
+    if (!timeSlot) {
+        throw new Error('Time slot not found for this stadium');
     }
 
-    if (!timeslot) {
-      throw new Error("Timeslot is already booked or not available");
+    // Check if the time slot is already booked
+    if (timeSlot.isBooked) {
+        throw new Error('Time slot is already booked');
     }
 
-    // Mark the timeslot as booked
-    timeslot.isBooked = true;
+    // Update the isBooked value of the time slot to true
+    timeSlot.isBooked = true;
 
     // Create the booking
     const booking = new Booking({
       stadiumId,
       userId,
-      startTime,
-      endTime,
+      timeSlotId,
     });
 
     // Save the changes to the stadium and create the booking
