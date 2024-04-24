@@ -71,19 +71,6 @@ export const updateStadium = async(data) => {
   return response;
 } 
 
-export const seacrhStadium = async(data) => {
-  let response;
-
-  try {
-    response = await(api.post("/stadium/register", data));
-    
-  } catch (error) {
-    return error;
-  }
-
-  return response;
-} 
-
 export const getStadiums = async() => {
   let response;
 

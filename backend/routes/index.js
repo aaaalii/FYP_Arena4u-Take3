@@ -22,7 +22,7 @@ router.post('/login', authController.login);
 router.post('/logout', auth, authController.logout);
 
 // Add/ Register Stadium route, calling stadiumOwnerAuth middleware to verify stadium owner credentials
-router.post('/stadium/register', stadiumOwnerAuth, stadiumController.registerStadium);
+router.post('/stadium/register', auth, stadiumController.registerStadium);
 
 // Update stadium info route
 router.put('/stadium/update', stadiumOwnerAuth, stadiumController.updateStadium);

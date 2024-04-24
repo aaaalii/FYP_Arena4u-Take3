@@ -1,25 +1,27 @@
 const mongoose = require('mongoose');
 
 const timeSlotSchema = new mongoose.Schema({
-  day: {
-    type: String,
-    enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-    required: true,
-  },
   startTime: {
-    type: String,
-    required: true,
-    match: /^(1[012]|0?[1-9]):[0-5][0-9]\s(?:AM|PM)$/, // HH:MM AM|PM format
+    day: {
+      type: Number, // Representing day of the week (0 for Sunday, 1 for Monday, ..., 6 for Saturday)
+      required: true
+    },
+    time: {
+      type: String, // Assuming time is in HH:mm format
+      required: true
+    }
   },
   endTime: {
-    type: String,
-    required: true,
-    match: /^(1[012]|0?[1-9]):[0-5][0-9]\s(?:AM|PM)$/, // HH:MM AM|PM format
-  },
-  isBooked:{
-    type: Boolean,
+    day: {
+      type: Number,
+      required: true
+    },
+    time: {
+      type: String,
+      required: true
+    }
   }
-})
+});
 
 const stadiumSchema = new mongoose.Schema({
   name: {

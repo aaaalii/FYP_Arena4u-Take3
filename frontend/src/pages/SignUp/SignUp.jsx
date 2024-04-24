@@ -28,6 +28,7 @@ function Signup() {
         _id: response.data.user._id,
         email: response.data.user.email,
         username: response.data.user.username,
+        isStadiumOwner: response.data.user.isStadiumOwner,
         auth: response.data.auth,
       };
 

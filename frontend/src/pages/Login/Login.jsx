@@ -28,6 +28,7 @@ function Login(){
                 _id: response.data.user._id,
                 username: response.data.user.username,
                 phoneNumber: response.data.user.phoneNumber,
+                isStadiumOwner: response.data.user.isStadiumOwner,
                 auth: response.data.auth
             }
 

@@ -4,6 +4,7 @@ const initialState = {
     _id: '',
     username: '',
     phoneNumber: '',
+    isStadiumOwner: false,
     auth: false
 }
 
@@ -12,17 +13,19 @@ export const userSlice = createSlice({
     initialState: initialState,
     reducers:{
         setUser: (state, action) => {
-            const {_id, username, phoneNumber, auth} = action.payload;
+            const {_id, username, phoneNumber,  isStadiumOwner, auth} = action.payload;
 
             state._id = _id;
             state.username = username;
             state.phoneNumber = phoneNumber;
+            state.isStadiumOwner = isStadiumOwner;
             state.auth = auth;
         },
         resetUser: (state, action) => {
             state._id = '';
             state.username = '';
             state.phoneNumber = '';
+            state.isStadiumOwner = false;
             state.auth = false;
         }
     }

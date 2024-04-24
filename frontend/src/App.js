@@ -8,10 +8,13 @@ import Login from "./pages/Login/Login";
 import { useSelector } from "react-redux";
 import Signup from "./pages/SignUp/SignUp";
 import Protected from "./components/Protected/Protected";
+import RegisterStadium from "./pages/Register Stadium/RegisterStadium";
+import Stadiums from "./pages/Stadiums/Stadiums";
 
 function App() {
   // use this to navigate to protected routes
   const isAuth = useSelector((state) => state.user.auth);
+  const isStadiumOwner = useSelector((state) => state.user.isStadiumOwner);
   return (
     <div className={styles.container}>
       <BrowserRouter>
@@ -30,7 +33,7 @@ function App() {
             <Route
               path="stadiums"
               exact
-              element={<div className={styles.main}>stadiums</div>}
+              element={<div className={styles.main}><Stadiums/></div>}
             />
             <Route
               path="register-stadium"
@@ -38,7 +41,7 @@ function App() {
               element={
                 <Protected isAuth={isAuth}>
                   <div className={styles.main}>
-                    Register stadium
+                    <RegisterStadium/>
                   </div>
                 </Protected>
               }
@@ -59,6 +62,18 @@ function App() {
                 <div className={styles.main}>
                   <Signup />
                 </div>
+              }
+            />
+
+            <Route
+              path="my-bookings"
+              exact
+              element={
+                <Protected isAuth={isAuth}>
+                  <div className={styles.main}>
+                    My Bookingssssss
+                  </div>
+                </Protected>
               }
             />
 

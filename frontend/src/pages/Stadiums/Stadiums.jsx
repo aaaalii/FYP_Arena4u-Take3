@@ -1,10 +1,8 @@
-import styles from './Home.module.css';
 import { getStadiums } from '../../api/internal';
 import React, { useState, useEffect } from 'react';
 import Loader from '../../components/Loader/Loader';
 
-function Home() {
-
+function Stadiums(){
     const [stadiums, setStadiums] = useState([]);
 
     useEffect(() => {
@@ -27,11 +25,6 @@ function Home() {
 
     return (
         <div>
-            <h1>Welcome to Arena4u</h1>
-            <p>
-                A perfect platform to book your ARENA... <br /><br /><br />              
-                <h2>Stadiums:</h2><br />
-            </p>
             {stadiums.map((stadium) => (
                 <div
                     id={stadium._id}
@@ -44,4 +37,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default Stadiums;
