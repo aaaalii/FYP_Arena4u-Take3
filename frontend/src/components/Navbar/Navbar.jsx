@@ -23,6 +23,15 @@ function Navbar() {
     const showDropdown = () => {
         setDropDown(!dropDown);
     };
+
+    const navLinkStyle = ({isActive}) => {
+        return {
+            fontWeight: isActive ? 'bold' : 'normal',
+            // textDecoration: isActive ? 'underline' : 'none',
+            // color: isActive ? 'red' : 'white'
+        }
+    } 
+
     return (
         <nav className="w-full h-24 flex flex-col justify-center items-center bg-slate-700 fixed z-20 border-none">
             <div className="container mx-auto lg:px-6">
@@ -41,25 +50,29 @@ function Navbar() {
                     </div>
                     <ul className="flex-1 flex justify-center items-center xl:gap-12 gap-x-4 max-lg:hidden">
                         <NavLink
+                            style={navLinkStyle}
                             to='/'
                             className="leading-normal no-underline text-white text-lg hover:text-primary">
                             Home
                         </NavLink>
                         <NavLink
                             to='stadiums'
+                            style={navLinkStyle}
                             className="leading-normal no-underline flex items-center text-white text-lg hover:text-primary"
                         >
                             Book a stadium
                         </NavLink>
                         <NavLink
                             to='register-stadium'
+                            style={navLinkStyle}
                             className="leading-normal no-underline flex items-center text-white text-lg hover:text-primary"
                         >
                             Register staium
                         </NavLink>
                         <NavLink
                             to='my-bookings'
-                            className="leading-normal no-underline text-white text-lg hover:text-primary"
+                            style={navLinkStyle}
+                            className={`leading-normal no-underline text-white text-lg hover:text-primary`}
                         >
                             My bookings
                         </NavLink>

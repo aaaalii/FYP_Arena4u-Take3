@@ -6,6 +6,7 @@ const stadiumController = require('../controllers/stadiumController');
 const router = express.Router();
 const auth = require('../middlewares/userAuth');
 const stadiumOwnerAuth = require('../middlewares/stadiumOwnerAuth');
+const bookingController = require('../controllers/bookingController');
 
 // Route to serve the index.html file
 router.get('/', (req, res) => {
@@ -44,5 +45,8 @@ router.delete('/stadium/delete/:stadiumId', stadiumOwnerAuth, stadiumController.
 
 // Book stadium (time-slot)
 router.post('/stadium/book/:stadiumId/:timeSlotId', auth, stadiumController.bookStadium);
+
+// User bookings
+router.get('/myBookings', auth, bookingController.userBookings);
 
 module.exports = router;
