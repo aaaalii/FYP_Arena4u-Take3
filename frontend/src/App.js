@@ -10,6 +10,7 @@ import Signup from "./pages/SignUp/SignUp";
 import Protected from "./components/Protected/Protected";
 import RegisterStadium from "./pages/Register Stadium/RegisterStadium";
 import Stadiums from "./pages/Stadiums/Stadiums";
+import Stadium from "./pages/BookStadium/Stadium";
 
 function App() {
   // use this to navigate to protected routes
@@ -33,7 +34,11 @@ function App() {
             <Route
               path="stadiums"
               exact
-              element={<div className={styles.main}><Stadiums/></div>}
+              element={
+                <div className={styles.main}>
+                  <Stadiums />
+                </div>
+              }
             />
             <Route
               path="register-stadium"
@@ -41,7 +46,7 @@ function App() {
               element={
                 <Protected isAuth={isAuth}>
                   <div className={styles.main}>
-                    <RegisterStadium/>
+                    <RegisterStadium />
                   </div>
                 </Protected>
               }
@@ -70,11 +75,19 @@ function App() {
               exact
               element={
                 <Protected isAuth={isAuth}>
-                  <div className={styles.main}>
-                    My Bookingssssss
-                  </div>
+                  <div className={styles.main}>My Bookingssssss</div>
                 </Protected>
               }
+            />
+            <Route
+              path = "stadium/:id"
+              exact
+              element = {
+                <div className={styles.main}>
+                  <Stadium />
+                </div>
+              }
+            
             />
 
             <Route

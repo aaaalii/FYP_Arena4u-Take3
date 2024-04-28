@@ -6,60 +6,6 @@ const Booking = require("../models/bookingsModel");
 
 const mongodbIdPattern = /^[0-9a-fA-F]{24}$/;
 
-// Define the Joi schema for a single time slot
-// const timeSlotJoiSchema = Joi.object({
-//   day: Joi.string()
-//     .valid(
-//       "Monday",
-//       "Tuesday",
-//       "Wednesday",
-//       "Thursday",
-//       "Friday",
-//       "Saturday",
-//       "Sunday"
-//     )
-//     .required(),
-//   startTime: Joi.string()
-//     .regex(/^(1[012]|0?[1-9]):[0-5][0-9]\s(?:AM|PM)$/)
-//     .required(),
-//   endTime: Joi.string()
-//     .regex(/^(1[012]|0?[1-9]):[0-5][0-9]\s(?:AM|PM)$/)
-//     .required(),
-//   isBooked: Joi.boolean(),
-// }).custom((value, helpers) => {
-//   // Custom validation function to ensure start time is less than end time
-//   const { startTime, endTime } = value;
-
-//   // Convert start and end times to minutes for comparison
-//   const startMinutes = convertTimeToMinutes(startTime);
-//   const endMinutes = convertTimeToMinutes(endTime);
-
-//   // Calculate the difference in minutes
-//   const timeDifference = endMinutes - startMinutes;
-
-//   // Check if the difference is less than 6 hours (360 minutes)
-//   if (timeDifference >= 360) {
-//     return helpers.error("any.invalid", {
-//       message: "Time slot duration must be less than 6 hours",
-//     });
-//   }
-
-//   return value;
-// }, "Time slot duration validation");
-
-// // Helper function to convert time to minutes
-// const convertTimeToMinutes = (time) => {
-//   // Split the time string into hours and minutes
-//   const [hoursStr, minutesStr] = time.split(":");
-
-//   // Parse hours and minutes as integers
-//   const hours = parseInt(hoursStr, 10);
-//   const minutes = parseInt(minutesStr, 10);
-
-//   // Convert hours and minutes to total minutes
-//   return hours * 60 + minutes;
-// };
-
 // Define the Joi schema for the timeSlot
 const timeSlotJoiSchema = Joi.object({
   startTime: Joi.object({
@@ -378,52 +324,7 @@ async function bookStadium(req, res, next) {
   }
 }
 
-const createBooking = async (stadiumId, userId, startTime, endTime) => {
-  try {
-    // Check if the timeslot is available
-    const stadium = await Stadium.findById(stadiumId);
-    if (!stadium) {
-      throw new Error("Stadium not found");
-    }
 
-    let timeslot;
-
-    for (let i = 0; i < stadium.timeSlots.length; i++) {
-      const slot = stadium.timeSlots[i];
-      if (
-        slot.startTime === startTime &&
-        slot.endTime === endTime &&
-        !slot.isBooked
-      ) {
-        timeslot = slot;
-        break; // Stop looping once a matching timeslot is found
-      }
-    }
-
-    if (!timeslot) {
-      throw new Error("Timeslot is already booked or not available");
-    }
-
-    // Mark the timeslot as booked
-    timeslot.isBooked = true;
-
-    // Create the booking
-    const booking = new Booking({
-      stadiumId,
-      userId,
-      startTime,
-      endTime,
-    });
-
-    // Save the changes to the stadium and create the booking
-    await stadium.save();
-    const savedBooking = await booking.save();
-
-    return savedBooking;
-  } catch (error) {
-    throw error;
-  }
-};
 
 async function getAllStadiums(req, res, next) {
   try {
@@ -438,6 +339,43 @@ async function getAllStadiums(req, res, next) {
   }
 }
 
+const getRandomStadiums = async (req, res, next) => {
+  try {
+    // Sample 5 random documents from the stadiums collection
+    const stadiums = await Stadium.aggregate([
+      { $sample: { size: 5 } }
+    ]);
+
+    res.status(200).json(stadiums);
+  } catch (error) {
+    console.error("Error fetching random stadiums:", error);
+    return next(error);
+  }
+};
+
+const getStadiumById = async (req, res, next) => {
+  try {
+    // Validate Id
+    const idValidationSchema = Joi.object({
+      id: Joi.string().pattern(mongodbIdPattern).required(),
+    });
+
+    const { error } = idValidationSchema.validate(req.params);
+
+    if (error) {
+      return next(error);
+    }
+    const {id} = req.params;
+    const stadium = await Stadium.findById(id);
+    if (!stadium) {
+      return res.status(404).send('Stadium not found');
+    }
+    res.status(200).json(stadium);
+  } catch (error) {
+    res.status(500).send('Error retrieving stadium: ' + error.message);
+  }
+}
+
 module.exports = {
   registerStadium,
   updateStadium,
@@ -447,4 +385,6 @@ module.exports = {
   deleteStadium,
   bookStadium,
   getAllStadiums,
+  getRandomStadiums,
+  getStadiumById
 };

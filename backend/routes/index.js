@@ -47,6 +47,12 @@ router.delete('/stadium/delete/:stadiumId', stadiumOwnerAuth, stadiumController.
 router.post('/stadium/book/:stadiumId/:timeSlotId', auth, stadiumController.bookStadium);
 
 // User bookings
-router.get('/myBookings', auth, bookingController.userBookings);
+// router.get('/myBookings', auth, bookingController.userBookings);
+
+// Random stadiums
+router.get('/stadium/random', stadiumController.getRandomStadiums);
+
+// get stadium by id
+router.get('/stadium/:id', stadiumController.getStadiumById);
 
 module.exports = router;

@@ -34,7 +34,7 @@ const Hero = () => {
                     Check out our latest <b>Stadium</b> and <b>services</b>.
                 </p>
                 <NavLink to= 'stadiums' className="rounded-full border border-solid border-primary bg-transparent text-lg text-black px-4 py-3 hoverBtn">
-                    Check it <b>Now</b>
+                    View <b>Stadiums</b>
                 </NavLink>
             </div>
             <div className="absolute bottom-0 left-0 right-0 mb-4">

@@ -3,6 +3,8 @@ class stadiumDTO{
         this.name = stadium.name;
         this._id = stadium._id;
         this.ownerId = stadium.ownerId;
+        this.location = stadium.location;
+        this.features = stadium.features;
     }
 }
 

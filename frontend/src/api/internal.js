@@ -35,51 +35,83 @@ export const signup = async (data) => {
 export const logout = async () => {
   let response;
 
-  try{
-    response = await(api.post("/logout"));
-  }
-  catch(error){
-    return error;
-  }
-
-  return response;
-}
-
-export const registerStadium = async(data) => {
-  let response;
-
   try {
-    response = await(api.post("/stadium/register", data));
-    
+    response = await api.post("/logout");
   } catch (error) {
     return error;
   }
 
   return response;
-} 
+};
 
-export const updateStadium = async(data) => {
+export const registerStadium = async (data) => {
   let response;
 
   try {
-    response = await(api.post("/stadium/update", data));
-    
+    response = await api.post("/stadium/register", data);
   } catch (error) {
     return error;
   }
 
   return response;
-} 
+};
 
-export const getStadiums = async() => {
+export const updateStadium = async (data) => {
   let response;
 
   try {
-    response = await(api.get("/stadium/all"));
-    
+    response = await api.post("/stadium/update", data);
   } catch (error) {
     return error;
   }
 
   return response;
-}
+};
+
+export const getStadiums = async () => {
+  let response;
+
+  try {
+    response = await api.get("/stadium/all");
+  } catch (error) {
+    return error;
+  }
+
+  return response;
+};
+
+export const getRandom = async () => {
+  let response;
+
+  try {
+    response = await api.get("/stadium/random");
+  } catch (error) {
+    return error;
+  }
+
+  return response;
+};
+
+export const getStadiumById = async (id) => {
+  let response;
+
+  try {
+    response = await api.get(`/stadium/${id}`);
+  } catch (error) {
+    return error;
+  }
+
+  return response;
+};
+
+export const bookStadium = async (stadiumId, timeSlotId) => {
+  let response;
+
+  try {
+    response = await api.post(`/stadium/book/${stadiumId}/${timeSlotId}`);
+  } catch (error) {
+    return error;
+  }
+
+  return response;
+};

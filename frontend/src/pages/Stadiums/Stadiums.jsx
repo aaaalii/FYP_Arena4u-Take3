@@ -1,8 +1,10 @@
 import { getStadiums } from '../../api/internal';
 import React, { useState, useEffect } from 'react';
 import Loader from '../../components/Loader/Loader';
+import Card from '../../components/StadiumCard/Card';
+import styles from './Stadiums.module.css';
 
-function Stadiums(){
+function Stadiums() {
     const [stadiums, setStadiums] = useState([]);
 
     useEffect(() => {
@@ -25,14 +27,12 @@ function Stadiums(){
 
     return (
         <div>
+            <div style={{ marginTop: '100px' }}></div>
+            <div>
             {stadiums.map((stadium) => (
-                <div
-                    id={stadium._id}
-                >
-                    <h1>{stadium.name}</h1>
-                    <p>{stadium.location}</p><br />
-                </div>
+                <Card stadium={stadium} />
             ))}
+        </div>
         </div>
     );
 }
