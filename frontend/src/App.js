@@ -11,6 +11,8 @@ import Protected from "./components/Protected/Protected";
 import RegisterStadium from "./pages/Register Stadium/RegisterStadium";
 import Stadiums from "./pages/Stadiums/Stadiums";
 import Stadium from "./pages/BookStadium/Stadium";
+import Bookings from "./pages/Bookings/Bookings";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   // use this to navigate to protected routes
@@ -18,6 +20,8 @@ function App() {
   const isStadiumOwner = useSelector((state) => state.user.isStadiumOwner);
   return (
     <div className={styles.container}>
+      <ToastContainer />
+
       <BrowserRouter>
         <div className={styles.layout}>
           <Navbar />
@@ -75,19 +79,20 @@ function App() {
               exact
               element={
                 <Protected isAuth={isAuth}>
-                  <div className={styles.main}>My Bookingssssss</div>
+                  <div className={styles.main}>
+                    <Bookings />
+                  </div>
                 </Protected>
               }
             />
             <Route
-              path = "stadium/:id"
+              path="stadium/:id"
               exact
-              element = {
+              element={
                 <div className={styles.main}>
                   <Stadium />
                 </div>
               }
-            
             />
 
             <Route

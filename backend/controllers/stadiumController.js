@@ -88,6 +88,7 @@ async function registerStadium(req, res, next) {
     res.status(201).json(stadiumDTO);
   } catch (error) {
     // Handle errors using next(error)
+    console.log(error);
     return next(error);
   }
 }
@@ -373,6 +374,7 @@ const getStadiumById = async (req, res, next) => {
     res.status(200).json(stadium);
   } catch (error) {
     res.status(500).send('Error retrieving stadium: ' + error.message);
+    return next(error);
   }
 }
 

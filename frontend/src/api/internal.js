@@ -47,6 +47,7 @@ export const logout = async () => {
 export const registerStadium = async (data) => {
   let response;
 
+  
   try {
     response = await api.post("/stadium/register", data);
   } catch (error) {
@@ -115,3 +116,15 @@ export const bookStadium = async (stadiumId, timeSlotId) => {
 
   return response;
 };
+
+export const userBookings = async() => {
+  let response;
+
+  try {
+    response = await api.get("/myBookings");
+  } catch (error) {
+    return error;
+  }
+
+  return response;
+}

@@ -24,16 +24,18 @@ const Hero = () => {
         <div className="h-screen flex items-center justify-center relative">
             <div
                 className="absolute inset-0 bg-cover bg-center blur-sm"
-                style={{ backgroundImage: `url(${ images[currentImage]})` }}
+                style={{ backgroundImage: `url(${images[currentImage]})` }}
             />
+            <div class="absolute inset-0 bg-black opacity-50"></div>
+
             <div className="z-10 text-center">
-                <h1 className="text-6xl font-bold mb-4 text-black">
+                <h1 className="text-6xl font-bold mb-4 text-white">
                     Welcome to our site!
                 </h1>
-                <p className="text-black mb-8">
+                <p className="text-white mb-8 text-lg">
                     Check out our latest <b>Stadium</b> and <b>services</b>.
                 </p>
-                <NavLink to= 'stadiums' className="rounded-full border border-solid border-primary bg-transparent text-lg text-black px-4 py-3 hoverBtn">
+                <NavLink to='stadiums' className="rounded-full border border-solid border-primary bg-transparent text-lg text-white px-4 py-3 hoverBtn hover:bg-slate-600 hover:outline-none hover:ring hover:ring-slate-500 hover:ring-opacity-75">
                     View <b>Stadiums</b>
                 </NavLink>
             </div>
