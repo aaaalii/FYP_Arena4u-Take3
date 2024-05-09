@@ -55,4 +55,7 @@ router.get('/stadium/random', stadiumController.getRandomStadiums);
 // get stadium by id
 router.get('/stadium/:id', stadiumController.getStadiumById);
 
+// get stadiums by owner id
+router.get('/myStadiums', stadiumOwnerAuth, stadiumController.getOwnerStadiums);
+
 module.exports = router;

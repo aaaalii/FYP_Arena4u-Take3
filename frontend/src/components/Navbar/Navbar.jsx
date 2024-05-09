@@ -24,13 +24,13 @@ function Navbar() {
         setDropDown(!dropDown);
     };
 
-    const navLinkStyle = ({isActive}) => {
+    const navLinkStyle = ({ isActive }) => {
         return {
             fontWeight: isActive ? 'bold' : 'normal',
             // textDecoration: isActive ? 'underline' : 'none',
             // color: isActive ? 'red' : 'white'
         }
-    } 
+    }
 
     return (
         <nav className="w-full h-24 flex flex-col justify-center items-center bg-slate-700 fixed z-20 border-none">
@@ -69,6 +69,14 @@ function Navbar() {
                         >
                             Register staium
                         </NavLink>
+                        {isStadiumOwner && (
+                                    <NavLink
+                                        to='my-stadiums' // Update the route path as needed
+                                        className="leading-normal no-underline text-white text-lg hover:text-primary"
+                                    >
+                                        My stadiums
+                                    </NavLink>
+                                )}
                         <NavLink
                             to='my-bookings'
                             style={navLinkStyle}
@@ -77,6 +85,7 @@ function Navbar() {
                             My bookings
                         </NavLink>
                     </ul>
+                    
                     {isAuthenticated ? (
                         <div className="flex jus max-lg:hidden">
                             <button onClick={handleSignOut} className="rounded-full border border-solid border-primary bg-transparent text-lg text-white px-4 py-3 hoverBtn">

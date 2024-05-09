@@ -378,6 +378,10 @@ const getStadiumById = async (req, res, next) => {
   }
 }
 
+const getOwnerStadiums = async (req, res, next) => {
+
+}
+
 module.exports = {
   registerStadium,
   updateStadium,
@@ -388,5 +392,6 @@ module.exports = {
   bookStadium,
   getAllStadiums,
   getRandomStadiums,
-  getStadiumById
+  getStadiumById,
+  getOwnerStadiums
 };

@@ -29,6 +29,7 @@ function Home() {
     return (
         <>
             <Hero />
+            <br />
             <h2 className="text-4xl text-center font-bold mb-8">Featured Stadiums</h2>
             <div className="flex flex-wrap -mx-3">
                 {stadiums.map((stadium) => (
