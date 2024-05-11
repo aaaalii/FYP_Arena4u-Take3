@@ -62,25 +62,6 @@ function RegisterStadium() {
     }
   };
 
-  // const handleAddTimeSlot = () => {
-  //   const newTimeSlot = {
-  //     startTime: { day: 0, time: '' },
-  //     endTime: { day: 0, time: '' }
-  //   };
-    
-  //   setFormData(prevState => {
-  //     const newState = {
-  //       ...prevState,
-  //       timeSlots: [...prevState.timeSlots, newTimeSlot]
-  //     };
-  //     console.log('New State:', newState); // Check the new state
-  //     return newState;
-  //   });
-  // };
-  
-  
-  
-
   return (
     <form className="max-w-md mx-auto mt-100"
       style={{ marginTop: '100px' }}
@@ -169,7 +150,7 @@ function RegisterStadium() {
           </div>
         ))}
 
-      {/* Button to add a time slot */}
+      {/* Button to add a time slot */} 
       <button
         className="mb-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
         onClick={handleAddTimeSlot}

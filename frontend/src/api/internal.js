@@ -128,3 +128,26 @@ export const userBookings = async() => {
 
   return response;
 }
+
+export const getOwnerStadiums = async() => {
+  let response;
+
+  try {
+    response = await api.get("/myStadiums");
+  } catch (error) {
+    return error;
+  }
+
+  return response;
+}
+
+export const deleteStadium = async(stadiumId) => {
+  let response;
+
+  try {
+    response = api.delete(`/stadium/delete/${stadiumId}`);
+  } catch (error) {
+    return error;
+  }
+  return response;
+}

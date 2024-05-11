@@ -3,6 +3,7 @@ const StadiumDTO = require("../DTO/stadiumDTO");
 const User = require('../models/userModel')
 const Joi = require("joi");
 const Booking = require("../models/bookingsModel");
+const mongoose = require("mongoose");
 
 const mongodbIdPattern = /^[0-9a-fA-F]{24}$/;
 
@@ -18,7 +19,7 @@ const timeSlotJoiSchema = Joi.object({
   }).required()
 }).custom((value, helpers) => {
   const { startTime, endTime } = value;
-
+ 
   // Check if endTime day is either the same as startTime or one day ahead
   if (endTime.day !== startTime.day && endTime.day !== (startTime.day + 1) % 7) {
     return helpers.error("any.invalid", {
@@ -55,7 +56,7 @@ async function registerStadium(req, res, next) {
     location: Joi.string().required(),
     ownerId: Joi.string().pattern(mongodbIdPattern),
     features: Joi.array().items(Joi.string().trim().max(100)).default([]),
-    timeSlots: Joi.array().items(timeSlotJoiSchema).required(),
+    timeSlots: Joi.array().items(timeSlotJoiSchema),
   });
   const { error } = stadiumRegisterationSchema.validate(req.body);
 
@@ -240,6 +241,10 @@ async function searchStadiumByFeature(req, res, next) {
 }
 
 async function deleteStadium(req, res, next) {
+
+  const session = await mongoose.startSession(); // Start a transaction session
+  session.startTransaction();
+
   try {
     // Validate Id
     const idValidationSchema = Joi.object({
@@ -254,19 +259,28 @@ async function deleteStadium(req, res, next) {
 
     const { stadiumId } = req.params;
 
-    // Using findOneAndDelete to find the stadium by ID and delete it
-    const deletedStadium = await Stadium.findOneAndDelete({ _id: stadiumId });
+    // Delete all bookings associated with the stadium
+    await Booking.deleteMany({ stadiumId: stadiumId }, { session }); // Pass session to apply this operation in the transaction
 
+    // Delete the stadium
+    const deletedStadium = await Stadium.findByIdAndDelete(stadiumId, { session }); // Pass session here as well
     if (!deletedStadium) {
-      throw new Error("Stadium not found");
+      throw new Error('Stadium not found');
     }
-    const stadium = new StadiumDTO(deletedStadium);
-    res.json(deletedStadium);
 
-    // return deletedStadium;
+    // Commit the transaction
+    await session.commitTransaction();
+    console.log('Stadium and all related bookings deleted successfully.');
+    res.status(202).json(deletedStadium);
   } catch (error) {
-    console.error(error);
-    return next(error);
+    // If an error occurs, abort the transaction
+    await session.abortTransaction();
+    console.error('Transaction aborted due to an error:', error);
+    throw error; // Rethrow the error to handle it in the calling function
+  }
+  finally{
+    // End the session
+    session.endSession();
   }
 }
 
@@ -379,7 +393,16 @@ const getStadiumById = async (req, res, next) => {
 }
 
 const getOwnerStadiums = async (req, res, next) => {
-
+  try {
+    const ownerId = req.user._id;
+    // Find stadiums by ownerId
+    const stadiums = await Stadium.find({ ownerId: ownerId });
+    // Return the stadiums
+    res.json(stadiums);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server Error' });
+  }
 }
 
 module.exports = {

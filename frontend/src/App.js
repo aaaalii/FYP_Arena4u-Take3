@@ -15,6 +15,7 @@ import Bookings from "./pages/Bookings/Bookings";
 import MyStadiums from "./pages/MyStadiums/MyStadiums";
 import StadiumOwnerProtected from "./components/StadiumOwnerProtected/StadiumOwnerProtected";
 import { ToastContainer } from "react-toastify";
+import Detail from "./pages/MyStadiumDetails/Details";
 
 function App() {
   // use this to navigate to protected routes
@@ -50,7 +51,7 @@ function App() {
               path="my-stadiums"
               exact
               element={
-                <StadiumOwnerProtected isStadiumOwner = {isStadiumOwner}>
+                <StadiumOwnerProtected isStadiumOwner={isStadiumOwner}>
                   <div className={styles.main}>
                     <MyStadiums />
                   </div>
@@ -105,6 +106,17 @@ function App() {
                 <div className={styles.main}>
                   <Stadium />
                 </div>
+              }
+            />
+            <Route
+              path="myStadium/:id"
+              exact
+              element={
+                <StadiumOwnerProtected isStadiumOwner={isStadiumOwner}>
+                  <div className="styles.main">
+                    <Detail />
+                  </div>
+                </StadiumOwnerProtected>
               }
             />
 
