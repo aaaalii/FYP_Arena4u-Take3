@@ -46,11 +46,12 @@ export const logout = async () => {
 
 export const registerStadium = async (data) => {
   let response;
-
-  
+  console.log(data);
   try {
     response = await api.post("/stadium/register", data);
+    console.log(response);
   } catch (error) {
+    console.log(error);
     return error;
   }
 
@@ -149,5 +150,17 @@ export const deleteStadium = async(stadiumId) => {
   } catch (error) {
     return error;
   }
+  return response;
+}
+
+export const addTimeSlot = async(stadiumId) => {
+  let response;
+
+  try {
+    response = api.post(`addTimeSlot/${stadiumId}`);
+  } catch (error) {
+    return error;
+  }
+
   return response;
 }

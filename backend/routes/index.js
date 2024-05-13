@@ -58,4 +58,7 @@ router.get('/stadium/:id', stadiumController.getStadiumById);
 // get stadiums by owner id
 router.get('/myStadiums', stadiumOwnerAuth, stadiumController.getOwnerStadiums);
 
+// add timeSlot
+router.post('addTimeSlot/:stadiumId', stadiumOwnerAuth, stadiumController.addTimeSlot);
+
 module.exports = router;

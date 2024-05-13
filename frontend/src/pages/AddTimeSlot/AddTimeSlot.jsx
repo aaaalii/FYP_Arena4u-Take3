@@ -1,52 +1,64 @@
-function AddTimeSlot (){
+import React, { useState } from 'react';
+import TimePicker from 'react-time-picker';
+import { useNavigate } from "react-router-dom";
+import { addTimeSlot } from '../../api/internal';
 
-    const [formData, setFormData] = useState({
-        timeSlots: [{
+function AddTimeSlot() {
+
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+
+  const [formData, setFormData] = useState({
+    timeSlots: [{
+      startTime: { day: 0, time: '' },
+      endTime: { day: 0, time: '' }
+    }]
+  });
+
+  const handleTimeChange = (time, index, field) => {
+    const updatedTimeSlots = [...formData.timeSlots];
+    updatedTimeSlots[index][field].time = time;
+    setFormData({ ...formData, timeSlots: updatedTimeSlots });
+  };
+
+  const handleDayChange = (day, index, field) => {
+    const updatedTimeSlots = [...formData.timeSlots];
+    updatedTimeSlots[index][field].day = day;
+    setFormData({ ...formData, timeSlots: updatedTimeSlots });
+  };
+
+  const handleAddTimeSlot = () => {
+    setFormData({
+      ...formData,
+      timeSlots: [
+        ...formData.timeSlots,
+        {
           startTime: { day: 0, time: '' },
           endTime: { day: 0, time: '' }
-        }]
-      });
+        }
+      ]
+    });
+  };
 
-      const handleTimeChange = (time, index, field) => {
-        const updatedTimeSlots = [...formData.timeSlots];
-        updatedTimeSlots[index][field].time = time;
-        setFormData({ ...formData, timeSlots: updatedTimeSlots });
-      };
-    
-      const handleDayChange = (day, index, field) => {
-        const updatedTimeSlots = [...formData.timeSlots];
-        updatedTimeSlots[index][field].day = day;
-        setFormData({ ...formData, timeSlots: updatedTimeSlots });
-      };
-    
-      const handleAddTimeSlot = () => {
-        setFormData({
-          ...formData,
-          timeSlots: [
-            ...formData.timeSlots,
-            {
-              startTime: { day: 0, time: '' },
-              endTime: { day: 0, time: '' }
-            }
-          ]
-        });
-      };
-    
-      const handleFormSubmit = async (e) => {
-        e.preventDefault();
-    
-        const response = await registerStadium(formData);
-        if (response.status === 201) {
-          navigate('/');
-        }
-        else if (response === 'ERR_BAD_REQUEST') {
-          setError(response.response.data.message);
-        }
-      }
-    
-    return(
-        <div>
-            {formData.timeSlots.map((timeSlot, index) => (
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    const response = await addTimeSlot(formData);
+    if (response.status === 201) {
+      navigate('/');
+    }
+    else if (response === 'ERR_BAD_REQUEST') {
+      setError(response.response.data.message);
+    }
+  }
+
+  return (
+
+    <form className="max-w-md mx-auto mt-100"
+      style={{ marginTop: '100px' }}
+      onSubmit={handleFormSubmit}>
+      <div>
+        {formData.timeSlots.map((timeSlot, index) => (
           <div key={index} className="mb-4">
             <label className="block mb-2">Start Day:</label>
             <select
@@ -100,15 +112,17 @@ function AddTimeSlot (){
           </div>
         ))}
 
-      {/* Button to add a time slot */} 
-      <button
-        className="mb-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-        onClick={handleAddTimeSlot}
-      >
-        Add Time Slot
-      </button>
-        </div>
-    );
+        {/* Button to add a time slot */}
+        <button
+          className="mb-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          onClick={handleAddTimeSlot}
+        >
+          Add Time Slot
+        </button>
+      </div>
+    </form>
+
+  );
 }
 
 export default AddTimeSlot;

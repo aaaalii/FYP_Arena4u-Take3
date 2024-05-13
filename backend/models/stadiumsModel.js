@@ -44,10 +44,12 @@ const stadiumSchema = new mongoose.Schema({
   features: {
     type: [String],
     default: [],
+    required: false,
   },
   timeSlots: {
     type: [timeSlotSchema],
     default: [],
+    required: false,
   },
 });
 

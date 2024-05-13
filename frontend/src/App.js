@@ -16,6 +16,7 @@ import MyStadiums from "./pages/MyStadiums/MyStadiums";
 import StadiumOwnerProtected from "./components/StadiumOwnerProtected/StadiumOwnerProtected";
 import { ToastContainer } from "react-toastify";
 import Detail from "./pages/MyStadiumDetails/Details";
+import AddTimeSlot from "./pages/AddTimeSlot/AddTimeSlot";
 
 function App() {
   // use this to navigate to protected routes
@@ -108,6 +109,20 @@ function App() {
                 </div>
               }
             />
+
+            <Route 
+              path = "addTimeSlot/:stadiumId"
+              exactelement={
+                <StadiumOwnerProtected isStadiumOwner={isStadiumOwner}>
+                  <div>
+                    <AddTimeSlot />
+                  </div>
+                </StadiumOwnerProtected>
+              }
+              
+            />
+
+            
             <Route
               path="myStadium/:id"
               exact

@@ -62,6 +62,7 @@ async function registerStadium(req, res, next) {
 
   // 2. if error in validation -> return error via middleware
   if (error) {
+    console.log(error);
     return next(error);
   }
   try {
@@ -83,7 +84,6 @@ async function registerStadium(req, res, next) {
     makeUserStadiumOwner(userId);
     // Save the stadium to the database
     const savedStadium = await newStadium.save();
-
     const stadiumDTO = new StadiumDTO(savedStadium);
 
     res.status(201).json(stadiumDTO);
@@ -405,6 +405,37 @@ const getOwnerStadiums = async (req, res, next) => {
   }
 }
 
+const addTimeSlot = async (req, res, next) => {
+  try {
+    // Validate Id
+    const idValidationSchema = Joi.object({
+      id: Joi.string().pattern(mongodbIdPattern).required(),
+    });
+
+    const { error } = idValidationSchema.validate(req.params);
+
+    if (error) {
+      return next(error);
+    }
+    const {stadiumId} = req.params;
+    const {startTime, endTime} = req.body;
+
+    // Find the stadium by ID
+    const stadium = await Stadium.findById(stadiumId);
+    if (!stadium) {
+      return res.status(404).json({ error: 'Stadium not found' });
+    }
+
+    // Add the new time slot to the stadium's timeSlots array
+    stadium.timeSlots.push({ startTime, endTime });
+    await stadium.save();
+
+    res.status(201).json({ message: 'Time slot added successfully', stadium });
+  } catch (error) {
+    
+  }
+}
+
 module.exports = {
   registerStadium,
   updateStadium,
@@ -416,5 +447,6 @@ module.exports = {
   getAllStadiums,
   getRandomStadiums,
   getStadiumById,
-  getOwnerStadiums
+  getOwnerStadiums,
+  addTimeSlot,
 };

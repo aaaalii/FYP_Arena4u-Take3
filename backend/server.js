@@ -1,4 +1,3 @@
-// to start server use command npm run start, just checking
 // drboM1G8JrQkfYT5
 // ezp6MjIsM9Tbh9DF
 const express = require("express");
@@ -22,7 +21,7 @@ app.use(cookieParser());
 
 app.use(cors(corsOptions));
 
-// For testing purpose, to send data in form of json
+// to send data in form of json
 app.use(express.json());
 
 // Serve static files from the frontend/public directory
