@@ -47,11 +47,15 @@ function MyStadiums() {
 
   return (
     <div style={{ marginTop: "100px" }}>
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-8">My Stadiums</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {stadiums.map(stadium => (
-            <Card stadium={stadium} />
+      <div className="container mx-auto px-4 mb-20">
+        <h1 className="text-slate-800 font-extrabold text-3xl text-center pt-10 mb-10">
+          My Stadiums
+        </h1>
+        <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+          {stadiums.map((stadium, index) => (
+            <div key={index} className="">
+              <Card stadium={stadium} />
+            </div>
           ))}
         </div>
       </div>

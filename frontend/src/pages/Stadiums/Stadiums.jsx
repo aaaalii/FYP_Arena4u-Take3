@@ -25,9 +25,12 @@ function Stadiums() {
   }
 
   return (
-    <div>
-      <div style={{ marginTop: "100px" }}></div>
-      <div className="px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4">
+    <div className="mb-20">
+      .<div style={{ marginTop: "75px" }}></div>
+      <h1 className="text-slate-800 font-extrabold text-3xl text-center pt-10 mb-10">
+        Book a Stadium
+      </h1>
+      <div className="px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4">
         {stadiums.map((stadium, index) => (
           <div key={index} className="">
             <Card stadium={stadium} />
