@@ -20,8 +20,8 @@ import AddTimeSlot from "./pages/AddTimeSlot/AddTimeSlot";
 
 function App() {
   // use this to navigate to protected routes
-  const isAuth = useSelector((state) => state.user.auth);
-  const isStadiumOwner = useSelector((state) => state.user.isStadiumOwner);
+  const isAuth = useSelector(state => state.user.auth);
+  const isStadiumOwner = useSelector(state => state.user.isStadiumOwner);
   return (
     <div className={styles.container}>
       <ToastContainer />
@@ -110,19 +110,18 @@ function App() {
               }
             />
 
-            <Route 
-              path = "addTimeSlot/:stadiumId"
-              exactelement={
+            <Route
+              path="addTimeSlot/:stadiumId"
+              exact
+              element={
                 <StadiumOwnerProtected isStadiumOwner={isStadiumOwner}>
                   <div>
                     <AddTimeSlot />
                   </div>
                 </StadiumOwnerProtected>
               }
-              
             />
 
-            
             <Route
               path="myStadium/:id"
               exact

@@ -60,7 +60,7 @@ function Navbar() {
               style={navLinkStyle}
               className="leading-normal no-underline flex items-center text-white text-lg hover:text-primary hover:scale-105 duration-200 ease-in"
             >
-              Register staium
+              Register stadium
             </NavLink>
             {isStadiumOwner && (
               <NavLink

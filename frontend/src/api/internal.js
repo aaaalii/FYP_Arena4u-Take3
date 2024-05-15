@@ -8,7 +8,7 @@ const api = axios.create({
   },
 });
 
-export const login = async (data) => {
+export const login = async data => {
   let response;
 
   try {
@@ -20,7 +20,7 @@ export const login = async (data) => {
   return response;
 };
 
-export const signup = async (data) => {
+export const signup = async data => {
   let response;
 
   try {
@@ -44,21 +44,18 @@ export const logout = async () => {
   return response;
 };
 
-export const registerStadium = async (data) => {
+export const registerStadium = async data => {
   let response;
-  console.log(data);
   try {
     response = await api.post("/stadium/register", data);
-    console.log(response);
   } catch (error) {
-    console.log(error);
     return error;
   }
 
   return response;
 };
 
-export const updateStadium = async (data) => {
+export const updateStadium = async data => {
   let response;
 
   try {
@@ -94,7 +91,7 @@ export const getRandom = async () => {
   return response;
 };
 
-export const getStadiumById = async (id) => {
+export const getStadiumById = async id => {
   let response;
 
   try {
@@ -118,7 +115,7 @@ export const bookStadium = async (stadiumId, timeSlotId) => {
   return response;
 };
 
-export const userBookings = async() => {
+export const userBookings = async () => {
   let response;
 
   try {
@@ -128,9 +125,9 @@ export const userBookings = async() => {
   }
 
   return response;
-}
+};
 
-export const getOwnerStadiums = async() => {
+export const getOwnerStadiums = async () => {
   let response;
 
   try {
@@ -140,9 +137,9 @@ export const getOwnerStadiums = async() => {
   }
 
   return response;
-}
+};
 
-export const deleteStadium = async(stadiumId) => {
+export const deleteStadium = async stadiumId => {
   let response;
 
   try {
@@ -151,16 +148,16 @@ export const deleteStadium = async(stadiumId) => {
     return error;
   }
   return response;
-}
+};
 
-export const addTimeSlot = async(stadiumId) => {
+export const addTimeSlot = async (stadiumId, data) => {
   let response;
 
   try {
-    response = api.post(`addTimeSlot/${stadiumId}`);
+    response = api.post(`addTimeSlot/${stadiumId}`, data);
   } catch (error) {
     return error;
   }
 
   return response;
-}
+};
