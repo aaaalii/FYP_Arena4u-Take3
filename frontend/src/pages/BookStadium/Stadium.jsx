@@ -89,7 +89,7 @@ function Stadium() {
     };
 
     if (isLoading) {
-        return <Loader text="Loading stadium details" />;
+        return <Loader text=" stadium details" />;
     }
 
     if (error) {
