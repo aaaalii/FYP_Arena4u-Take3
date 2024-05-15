@@ -43,7 +43,7 @@ function Stadium() {
             // Handle success
             if (response.status === 201) {
               console.log("Timeslot booked successfully:", response);
-
+              
               toast.success("Booking successful!", {
                 position: "top-right",
                 autoClose: 3000, // Close the toast after 3 seconds
@@ -83,12 +83,10 @@ function Stadium() {
     } else {
       console.error("Invalid stadium or timeslot ID");
       // Optionally, show an error message to the user
+    if (isLoading) {
+        return <Loader text=" stadium details" />;
     }
   };
-
-  if (isLoading) {
-    return <Loader text="Loading stadium details" />;
-  }
 
   if (error) {
     return <div>Error: {error}</div>;

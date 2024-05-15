@@ -9,7 +9,8 @@ import {
 } from "react-icons/hi"; // Import icons for buttons
 
 const Detail = () => {
-  const { stadiumId } = useParams(); // Get stadium ID from URL params
+  const { id } = useParams();
+  console.log(id);
   const navigate = useNavigate();
   const [stadium, setStadium] = useState(null);
   const [showStadiumForm, setShowStadiumForm] = useState(false); // State to control visibility of stadium update form
@@ -19,7 +20,7 @@ const Detail = () => {
     const fetchStadium = async () => {
       try {
         // Fetch stadium by ID from API
-        const response = await getStadiumById(stadiumId); // Assuming getStadiumById fetches stadium details by ID
+        const response = await getStadiumById(id); // Assuming getStadiumById fetches stadium details by ID
         setStadium(response.data); // Set stadium state with fetched data
       } catch (error) {
         console.error("Error fetching stadium:", error);
@@ -27,12 +28,12 @@ const Detail = () => {
     };
 
     fetchStadium();
-  }, [stadiumId]); // Fetch stadium details whenever ID changes
+  }, [id]); // Fetch stadium details whenever ID changes
 
   const handleDeleteStadium = async () => {
     try {
       // Delete stadium by ID from API
-      await deleteStadium(stadiumId);
+      await deleteStadium(id);
       navigate("/my-stadiums"); // Redirect to my stadiums page after deletion
     } catch (error) {
       console.error("Error deleting stadium:", error);
@@ -41,7 +42,7 @@ const Detail = () => {
 
   const handleAddTimeSlot = async () => {
     try {
-      navigate(`addTimeSlot/${stadiumId}`);
+      navigate(`addTimeSlot/${id}`);
     } catch (error) {
       console.error(error);
     }
@@ -110,8 +111,8 @@ const Detail = () => {
         )}
 
         <button
-          onClick={() => navigate(`/addTimeSlot/${stadiumId}`)}
           className="mt-4 flex items-center text-blue-600 hover:text-blue-900"
+          onClick={() => navigate(`/addTimeSlot/${id}`)}
         >
           <HiOutlinePlus className="w-6 h-6 mr-1" /> Add New Time Slot
         </button>

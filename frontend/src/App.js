@@ -111,7 +111,7 @@ function App() {
             />
 
             <Route
-              path="addTimeSlot/:stadiumId"
+              path="addTimeSlot/:id"
               exact
               element={
                 <StadiumOwnerProtected isStadiumOwner={isStadiumOwner}>

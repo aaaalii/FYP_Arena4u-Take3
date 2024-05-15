@@ -151,6 +151,8 @@ export const deleteStadium = async stadiumId => {
 };
 
 export const addTimeSlot = async (stadiumId, data) => {
+  console.log(stadiumId);
+  console.log(data);
   let response;
 
   try {
