@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const Card = ({ stadium }) => {
     const navigate = useNavigate();
     const featureList = stadium.features.join(', ');
-
+    console.log(stadium._id);
     return (
         <div className="w-1/2 bg-white rounded-md shadow-md p-4">
             <h2 className="text-xl font-semibold">{stadium.name}</h2>
@@ -20,7 +20,7 @@ const Card = ({ stadium }) => {
             </div>
             <button
                 className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
-                onClick={() => navigate(`/myStadium/${stadium._id}`)}
+                onClick={() => navigate(`/myStadium/${stadium._id}`)} 
             >
                 Update
             </button>

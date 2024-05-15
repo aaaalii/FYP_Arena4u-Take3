@@ -407,18 +407,35 @@ const getOwnerStadiums = async (req, res, next) => {
 
 const addTimeSlot = async (req, res, next) => {
   try {
-    // Validate Id
+    // Validate Stadium ID from parameters
     const idValidationSchema = Joi.object({
-      id: Joi.string().pattern(mongodbIdPattern).required(),
+      stadiumId: Joi.string().pattern(mongodbIdPattern).required(),
     });
 
-    const { error } = idValidationSchema.validate(req.params);
-
-    if (error) {
-      return next(error);
+    const { error: idError } = idValidationSchema.validate(req.params);
+    if (idError) {
+      return next(idError);
     }
-    const {stadiumId} = req.params;
-    const {startTime, endTime} = req.body;
+
+    const { stadiumId } = req.params;
+    const { startTime, endTime } = req.body;
+
+    // Validate the startTime and endTime according to your schema needs
+    const timeSlotValidationSchema = Joi.object({
+      startTime: Joi.object({
+        day: Joi.number().integer().min(0).max(6).required(),
+        time: Joi.string().pattern(/^([0-1]?[0-9]|2[0-3]):([0-5][0-9])$/).required()
+      }).required(),
+      endTime: Joi.object({
+        day: Joi.number().integer().min(0).max(6).required(),
+        time: Joi.string().pattern(/^([0-1]?[0-9]|2[0-3]):([0-5][0-9])$/).required()
+      }).required()
+    });
+
+    const { error: timeSlotError } = timeSlotValidationSchema.validate({ startTime, endTime });
+    if (timeSlotError) {
+      return res.status(400).json({ error: 'Invalid time slot data', details: timeSlotError.details });
+    }
 
     // Find the stadium by ID
     const stadium = await Stadium.findById(stadiumId);
@@ -427,14 +444,27 @@ const addTimeSlot = async (req, res, next) => {
     }
 
     // Add the new time slot to the stadium's timeSlots array
-    stadium.timeSlots.push({ startTime, endTime });
-    await stadium.save();
+    stadium.timeSlots.push({
+      startTime: {
+        day: startTime.day,
+        time: startTime.time
+      },
+      endTime: {
+        day: endTime.day,
+        time: endTime.time
+      },
+      isBooked: false // Default value
+    });
 
+    await stadium.save();
     res.status(201).json({ message: 'Time slot added successfully', stadium });
   } catch (error) {
-    
+    console.error('Error while adding time slot:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 }
+
+
 
 module.exports = {
   registerStadium,
