@@ -91,7 +91,6 @@ function Signup() {
       />
 
       <button
-        className={styles.signupButton}
         onClick={handleSignup}
         disabled={
           !values.username ||
@@ -101,8 +100,9 @@ function Signup() {
           errors.password ||
           errors.phoneNumber
         }
+        className="rounded-full border border-solid border-primary bg-transparent text-lg text-black px-14 py-5 hoverBtn m-6"
       >
-        Sign Up
+        SignUp
       </button>
 
       <span>

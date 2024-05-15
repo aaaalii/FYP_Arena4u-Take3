@@ -40,11 +40,11 @@ function RegisterStadium() {
         Register Stadium
       </h1>
       <form
-        className="max-w-md mx-auto mb-40"
+        className="max-w-md mx-auto mb-40 flex flex-col w-96 items-center justify-center"
         style={{ marginTop: "50px" }}
         onSubmit={handleFormSubmit}
       >
-        <div className="mb-4">
+        <div className="mb-4 w-full">
           <label className="block mb-2">Name:</label>
           <input
             className="w-full px-3 py-2 border rounded-md text-bold"
@@ -54,7 +54,7 @@ function RegisterStadium() {
             onChange={e => setFormData({ ...formData, name: e.target.value })}
           />
         </div>
-        <div className="mb-4">
+        <div className="mb-4 w-full">
           <label className="block mb-2">Location:</label>
           <input
             className="w-full px-3 py-2 border rounded-md"
@@ -66,23 +66,23 @@ function RegisterStadium() {
             }
           />
         </div>
-
+        <div className="flex gap-6">
+          {formData.features.map((feature, index) => (
+            <div key={index} className="mb-2">
+              {feature}
+            </div>
+          ))}
+        </div>
         <button
-          className="mb-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
           onClick={handleAddFeature}
+          className="rounded-full border border-solid border-primary bg-transparent text-lg text-black px-8 py-3 hoverBtn my-4"
         >
           Add Feature
         </button>
-        {formData.features.map((feature, index) => (
-          <div key={index} className="mb-2">
-            {feature}
-          </div>
-        ))}
 
-        <br />
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          className="rounded-full border border-solid border-primary bg-transparent text-lg text-black px-8 py-3 hoverBtn"
         >
           Submit
         </button>
