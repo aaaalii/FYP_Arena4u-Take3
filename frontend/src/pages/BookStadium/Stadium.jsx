@@ -89,6 +89,9 @@ function Stadium() {
   if (isLoading) {
     return <Loader text="Loading stadium details" />;
   }
+  if (isLoading) {
+    return <Loader text=" stadium details" />;
+  }
 
   if (error) {
     return <div>Error: {error}</div>;
