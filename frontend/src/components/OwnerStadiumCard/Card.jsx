@@ -24,9 +24,7 @@ const Card = ({ stadium }) => {
               Update
             </button>
           </div>
-        </div>
-      </div>
-    </div>
+        
   );
 };
 
