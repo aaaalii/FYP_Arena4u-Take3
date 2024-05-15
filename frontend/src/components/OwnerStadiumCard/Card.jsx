@@ -1,6 +1,5 @@
-import React from 'react';
+import React from "react";
 import { useNavigate } from "react-router-dom";
-
 
 const Card = ({ stadium }) => {
     const navigate = useNavigate();
@@ -22,10 +21,13 @@ const Card = ({ stadium }) => {
                 className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
                 onClick={() => navigate(`/myStadium/${stadium._id}`)} 
             >
-                Update
+              Update
             </button>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Card;
