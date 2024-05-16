@@ -32,7 +32,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="w-full h-24 flex flex-col justify-center items-center bg-slate-700 fixed z-20 border-none">
+    <nav className="w-full h-24 flex flex-col justify-center items-center bg-slate-800 fixed z-20 border-none">
       <div className="container mx-auto lg:px-6">
         <div className="lg:w-full w-11/12 mx-auto h-full flex justify-between items-center">
           <div className="flex flex-col gap-y-4">
@@ -65,8 +65,9 @@ function Navbar() {
             {isStadiumOwner && (
               <NavLink
                 to="my-stadiums"
+                style={navLinkStyle}
                 className="leading-normal no-underline flex items-center text-white text-lg hover:text-primary hover:scale-105 duration-200 ease-in"
-                >
+              >
                 My stadiums
               </NavLink>
             )}

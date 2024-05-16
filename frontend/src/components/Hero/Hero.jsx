@@ -1,58 +1,61 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
-
-
 const Hero = () => {
-    const images = [
-        "https://media.istockphoto.com/id/983979694/photo/corner-line-of-an-indoor-football-soccer-training-field.jpg?s=2048x2048&w=is&k=20&c=7CGWN6PHwa7CajuxY2tOje6rW4ezphC8XrarjimaX3Q=",
-        "https://hips.hearstapps.com/hmg-prod/images/tottenham-stadium-plans-3-1531502457.jpg",
-        "data:image/jpeg;base64,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",
-    ];
+  const images = [
+    "https://img.freepik.com/free-photo/green-grass-cinematic-lighting-football-stadium_1409-7657.jpg?t=st=1715819091~exp=1715822691~hmac=4c0dfa52eebe43973bae4aabc50e26cd1f4adaea8254b225ac2d2c0f161ba5a1&w=1060",
+    "https://img.freepik.com/free-photo/american-football-field_23-2151117538.jpg?t=st=1715820290~exp=1715823890~hmac=2de96d3100b756533763939398a3022440d1421a183df64c37d3461bdc4aee0f&w=1380",
+    "https://img.freepik.com/free-photo/american-football-field_23-2151117451.jpg?t=st=1715819900~exp=1715823500~hmac=96f1d01bad9195bd5fca1b6ac25fcc420ae7ac6b372feebce4d5425fc88726b3&w=1380",
+    "https://img.freepik.com/free-photo/sport-football-arena-background_1409-5719.jpg?t=st=1715820180~exp=1715823780~hmac=403149c0bf5fef95637fdb4cd581c3b14686d5554e075a704858cd0afd18c08d&w=1060",
+  ];
 
-    const [currentImage, setCurrentImage] = useState(0);
+  const [currentImage, setCurrentImage] = useState(0);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentImage((prevIndex) => (prevIndex + 1) % images.length);
-        }, 5000);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage(prevIndex => (prevIndex + 1) % images.length);
+    }, 5000);
 
-        return () => clearInterval(interval);
-    }, [images.length]);
+    return () => clearInterval(interval);
+  }, [images.length]);
 
-    return (
-        <div className="h-screen flex items-center justify-center relative">
+  return (
+    <div className="h-screen flex items-center justify-center relative">
+      <div
+        className="absolute inset-0 bg-cover bg-center blur-sm"
+        style={{ backgroundImage: `url(${images[currentImage]})` }}
+      />
+      <div class="absolute inset-0 bg-black opacity-50"></div>
+
+      <div className="z-10 text-center">
+        <h1 className="text-6xl font-bold mb-4 text-white">
+          Welcome to our site!
+        </h1>
+        <p className="text-white mb-8 text-lg">
+          Check out our latest <b>Stadium</b> and <b>services</b>.
+        </p>
+        <NavLink
+          to="stadiums"
+          className="rounded-full border border-solid border-primary bg-transparent text-lg text-white px-4 py-3 hoverBtn hover:bg-slate-600 hover:outline-none hover:ring hover:ring-slate-500 hover:ring-opacity-75"
+        >
+          View <b>Stadiums</b>
+        </NavLink>
+      </div>
+      <div className="absolute bottom-0 left-0 right-0 mb-4">
+        <div className="flex justify-center">
+          {images.map((image, index) => (
             <div
-                className="absolute inset-0 bg-cover bg-center blur-sm"
-                style={{ backgroundImage: `url(${images[currentImage]})` }}
+              key={index}
+              className={`w-3 h-3 m-1 rounded-full ${
+                index === currentImage ? "bg-white" : "bg-gray-300"
+              }`}
+              onClick={() => setCurrentImage(index)}
             />
-            <div class="absolute inset-0 bg-black opacity-50"></div>
-
-            <div className="z-10 text-center">
-                <h1 className="text-6xl font-bold mb-4 text-white">
-                    Welcome to our site!
-                </h1>
-                <p className="text-white mb-8 text-lg">
-                    Check out our latest <b>Stadium</b> and <b>services</b>.
-                </p>
-                <NavLink to='stadiums' className="rounded-full border border-solid border-primary bg-transparent text-lg text-white px-4 py-3 hoverBtn hover:bg-slate-600 hover:outline-none hover:ring hover:ring-slate-500 hover:ring-opacity-75">
-                    View <b>Stadiums</b>
-                </NavLink>
-            </div>
-            <div className="absolute bottom-0 left-0 right-0 mb-4">
-                <div className="flex justify-center">
-                    {images.map((image, index) => (
-                        <div
-                            key={index}
-                            className={`w-3 h-3 m-1 rounded-full ${index === currentImage ? "bg-white" : "bg-gray-300"
-                                }`}
-                            onClick={() => setCurrentImage(index)}
-                        />
-                    ))}
-                </div>
-            </div>
+          ))}
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Hero;

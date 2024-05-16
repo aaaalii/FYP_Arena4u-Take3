@@ -3,6 +3,8 @@ import TimePicker from "react-time-picker";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { addTimeSlot } from "../../api/internal";
+import "react-time-picker/dist/TimePicker.css";
+import "react-clock/dist/Clock.css";
 
 const AddTimeSlot = () => {
   const { id } = useParams();
@@ -11,20 +13,20 @@ const AddTimeSlot = () => {
 
   const [timeSlot, setTimeSlot] = useState({
     startTime: { day: "", time: "" },
-    endTime: { day: "", time: "" }
+    endTime: { day: "", time: "" },
   });
 
   const handleTimeChange = (time, field) => {
     setTimeSlot({
       ...timeSlot,
-      [field]: { ...timeSlot[field], time: time }
+      [field]: { ...timeSlot[field], time: time },
     });
   };
 
   const handleDayChange = (day, field) => {
     setTimeSlot({
       ...timeSlot,
-      [field]: { ...timeSlot[field], day: parseInt(day) }
+      [field]: { ...timeSlot[field], day: parseInt(day) },
     });
   };
 
@@ -41,11 +43,17 @@ const AddTimeSlot = () => {
 
   return (
     <div>
-      <form className="max-w-md mx-auto mt-100" style={{ marginTop: "100px" }} onSubmit={handleFormSubmit}>
+      <h1 className="text-slate-800 font-extrabold text-3xl text-center pt-10 mt-24 mb-10">
+        Enter Time Slot
+      </h1>
+      <form
+        className="max-w-md mx-auto flex flex-col mb-10 justify-center"
+        onSubmit={handleFormSubmit}
+      >
         <div className="mb-4">
           <label className="block mb-2">Start Day:</label>
           <select
-            className="w-full px-3 py-2 border rounded-md"
+            className="w-full px-3 py-2 border rounded-md mb-5"
             value={timeSlot.startTime.day}
             onChange={e => handleDayChange(e.target.value, "startTime")}
           >
@@ -60,8 +68,9 @@ const AddTimeSlot = () => {
           </select>
 
           <label className="block mb-2">Start Time:</label>
+
           <TimePicker
-            className="w-full px-3 py-2 border rounded-md"
+            className="w-full px-3 py-2 border-2 rounded-md text-lg bg-white text-gray-800 focus:outline-none focus:border-blue-700 focus:ring-2 focus:ring-blue-300"
             onChange={time => handleTimeChange(time, "startTime")}
             value={timeSlot.startTime.time}
             format="HH:mm"
@@ -93,10 +102,9 @@ const AddTimeSlot = () => {
             disableClock={true}
           />
         </div>
-
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          className="rounded-full border border-solid border-primary bg-transparent text-lg text-black px-8 py-3 hoverBtn mt-5"
         >
           Add Time Slot
         </button>
