@@ -49,7 +49,7 @@ const Detail = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8" style={{ marginTop: "100px" }}>
+    <div className="container mx-auto px-4 py-8 mb-24" style={{ marginTop: "100px" }}>
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-3xl font-bold">
           {stadium ? stadium.name : "Stadium Name"}
@@ -59,7 +59,6 @@ const Detail = () => {
             onClick={() => setShowStadiumForm(true)}
             className="text-gray-600 hover:text-gray-900 mr-4"
           >
-            <HiOutlinePencilAlt className="w-6 h-6" />
           </button>
           <button
             onClick={handleDeleteStadium}
@@ -97,11 +96,6 @@ const Detail = () => {
                     </p>
                     {/* <p>{timeSlot.day}</p> */}
                   </div>
-                  <div>
-                    <button className="text-gray-600 hover:text-gray-900">
-                      <HiOutlinePencilAlt className="w-6 h-6" />
-                    </button>
-                  </div>
                 </div>
               </li>
             ))}
@@ -114,7 +108,7 @@ const Detail = () => {
           className="mt-4 flex items-center text-blue-600 hover:text-blue-900"
           onClick={() => navigate(`/addTimeSlot/${id}`)}
         >
-          <HiOutlinePlus className="w-6 h-6 mr-1" /> Add New Time Slot
+           Add New Time Slot
         </button>
       </div>
 

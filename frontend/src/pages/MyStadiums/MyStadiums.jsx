@@ -30,7 +30,7 @@ function MyStadiums() {
 
   if (stadiums.length === 0) {
     return (
-      <div className="flex items-center justify-center mt-72 font-extrabold text-2xl text-center">
+      <div className="flex items-center justify-center mt-72 font-extrabold text-2xl text-center mb-24">
         <div>
           You have not registered any stadium.
           <br />
